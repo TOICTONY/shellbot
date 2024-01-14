@@ -1,5 +1,6 @@
 import os
 import subprocess
+from dotenv import load_dotenv
 from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext, CallbackQueryHandler
 from pymongo import MongoClient
@@ -7,13 +8,12 @@ from io import BytesIO
 from PIL import Image
 import ffmpeg
 
-API_ID = 'YOUR_TELEGRAM_API_ID'
-API_HASH = 'YOUR_TELEGRAM_API_HASH'
-TOKEN = 'YOUR_TELEGRAM_BOT_TOKEN'
-SAVE_PATH = 'path/to/save/files'
-MONGO_URI = 'YOUR_MONGO_URI'
-MONGO_DB_NAME = 'file_bot_db'
-OWNER_ID = 'YOUR_OWNER_ID'  # Replace with your Telegram user ID
+API_ID = os.getenv("API_ID")
+API_HASH = os.getenv("API_HASH")
+OWNER_ID = os.getenv("OWNER_ID")
+TOKEN = os.getenv("TOKEN")
+MONGO_URI = os.getenv("MONGO_URI")
+SAVE_PATH = os.getenv("SAVE_PATH")
 
 # Connect to MongoDB
 client = MongoClient(MONGO_URI)
