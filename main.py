@@ -161,13 +161,13 @@ def check_status(update: Update, context: CallbackContext) -> None:
 
     shellbot = shellBot()
 
-    dp.add_handler(CommandHandler("start", file_bot.start))
-    dp.add_handler(MessageHandler(Filters.document, file_bot.handle_file))
-    dp.add_handler(CommandHandler("deletethumbnail", file_bot.delete_thumbnail))
-    dp.add_handler(CommandHandler("showthumbnail", file_bot.show_thumbnail))
-    dp.add_handler(CallbackQueryHandler(file_bot.edit_metadata, pattern='^edit_metadata$'))
-    dp.add_handler(CommandHandler("status", file_bot.check_status))
-    dp.add_handler(CommandHandler("cancel", file_bot.cancel))
+    dp.add_handler(CommandHandler("start", shell_bot.start))
+    dp.add_handler(MessageHandler(Filters.document, shell_bot.handle_file))
+    dp.add_handler(CommandHandler("deletethumbnail", shell_bot.delete_thumbnail))
+    dp.add_handler(CommandHandler("showthumbnail", shell_bot.show_thumbnail))
+    dp.add_handler(CallbackQueryHandler(shell_bot.edit_metadata, pattern='^edit_metadata$'))
+    dp.add_handler(CommandHandler("status", shell_bot.check_status))
+    dp.add_handler(CommandHandler("cancel", shell_bot.cancel))
 
     updater.start_polling()
     updater.idle()
