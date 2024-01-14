@@ -159,7 +159,7 @@ def check_status(update: Update, context: CallbackContext) -> None:
     updater = Updater(TOKEN, use_context=True)
     dp = updater.dispatcher
 
-    shellbot = shellBot()
+    shell_bot = shellBot()
 
     dp.add_handler(CommandHandler("start", shell_bot.start))
     dp.add_handler(MessageHandler(Filters.document, shell_bot.handle_file))
