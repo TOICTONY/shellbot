@@ -84,6 +84,12 @@ def handle_file(update: Update, context: CallbackContext) -> None:
                 os.remove(file_path)
             self.pending_files.pop(user_id, None)
 
+def cancel(self, update: Update, context: CallbackContext) -> None:
+        user_id = update.message.from_user.id
+
+        if user_id in self.pending_files:
+            self.pending_files.pop(user_id, None)
+            update.message.reply_text('Operation canceled. You can start a new one.')
 
     # Add metadata editing button
     keyboard = [[InlineKeyboardButton("Edit Metadata 📝", callback_data='edit_metadata')]]
@@ -161,6 +167,7 @@ def check_status(update: Update, context: CallbackContext) -> None:
     dp.add_handler(CommandHandler("showthumbnail", file_bot.show_thumbnail))
     dp.add_handler(CallbackQueryHandler(file_bot.edit_metadata, pattern='^edit_metadata$'))
     dp.add_handler(CommandHandler("status", file_bot.check_status))
+    dp.add_handler(CommandHandler("cancel", file_bot.cancel))
 
     updater.start_polling()
     updater.idle()
