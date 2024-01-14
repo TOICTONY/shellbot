@@ -1,0 +1,44 @@
+name: Deploy to Heroku
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.x
+
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+
+    - name: Login to Heroku
+      uses: akhileshns/heroku-deploy@v3.12.12
+      with:
+        heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+        heroku_app_name: your-heroku-app-name
+        heroku_email: your-heroku-email@example.com
+
+    - name: Set up environment variables
+      run: |
+        echo "API_ID=${{ secrets.API_ID }}" >> .env
+        echo "API_HASH=${{ secrets.API_HASH }}" >> .env
+        echo "OWNER_ID=${{ secrets.OWNER_ID }}" >> .env
+        echo "TOKEN=${{ secrets.TOKEN }}" >> .env
+        echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env
+        echo "SAVE_PATH=${{ secrets.SAVE_PATH }}" >> .env
+
+    - name: Deploy to Heroku
+      run: |
+        git push https://heroku:$HEROKU_API_KEY@git.heroku.com/your-heroku-app-name.git main
+        
